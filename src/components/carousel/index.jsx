@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -7,6 +7,8 @@ import { CryptoContext } from "../../app/context/crypto";
 import "../../styles/carousel.css";
 
 function Carusel() {
+  const sliderRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const {
     current,
     convertCurrency,
@@ -14,13 +16,27 @@ function Carusel() {
     getCryptoById,
     caruselData,
   } = useContext(CryptoContext);
+  let slidesToShow;
+  if (caruselData.length <= 3) {
+    slidesToShow = caruselData.length;
+  } else {
+    slidesToShow = 4;
+  }
   const settings = {
     infinite: false,
-    slidesToShow: 4,
+    slidesToShow: slidesToShow,
     slidesToScroll: 4,
     autoplay: true,
     centerMode: false,
     autoplaySpeed: 2300,
+    afterChange: (index) => {
+      setCurrentIndex(index);
+      if (index === sliderRef.current.props.children.length - 4) {
+        setTimeout(() => {
+          sliderRef.current.slickGoTo(0);
+        }, 2300);
+      }
+    },
   };
 
   const handleCryptoClick = (cryptoId) => {
@@ -43,7 +59,7 @@ function Carusel() {
         </div>
         <div className="">
           <div className="slider-container w-[1230px] mx-auto">
-            <Slider {...settings}>
+            <Slider ref={sliderRef} {...settings}>
               {caruselData ? (
                 caruselData.map((crypto) => (
                   <div
