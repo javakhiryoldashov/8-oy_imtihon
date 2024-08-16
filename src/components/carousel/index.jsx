@@ -15,7 +15,7 @@ function Carusel() {
     caruselData,
   } = useContext(CryptoContext);
   const settings = {
-    infinite: true,
+    infinite: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     autoplay: true,
