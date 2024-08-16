@@ -1,8 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Create a Context for the crypto data
 export const CryptoContext = createContext();
 
+// Create a provider component
 export const CryptoProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
@@ -22,7 +24,6 @@ export const CryptoProvider = ({ children }) => {
       );
       const result = await response.json();
       setData(result);
-      setCaruselData(result);
       setOriginalData(result);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -37,6 +38,7 @@ export const CryptoProvider = ({ children }) => {
     const storedWatchList = localStorage.getItem("watchList");
     if (storedWatchList) {
       setWatchList(JSON.parse(storedWatchList));
+      setCaruselData(JSON.parse(storedWatchList));
     }
   }, []);
 
@@ -100,6 +102,7 @@ export const CryptoProvider = ({ children }) => {
       const updatedWatchList = [...watchList, crypto];
 
       setWatchList(updatedWatchList);
+      setCaruselData(updatedWatchList);
       localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
     }
   };
@@ -109,6 +112,7 @@ export const CryptoProvider = ({ children }) => {
       (crypto) => crypto.id !== cryptoId
     );
     setWatchList(updatedWatchList);
+    setCaruselData(updatedWatchList);
     localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
   };
 
@@ -132,9 +136,8 @@ export const CryptoProvider = ({ children }) => {
   const getCryptoById = async (id) => {
     fetchCryptoData(id);
     try {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${id}`
-      );
+      const response = await fetch(`https://api.coingecko.com/api/
+v3/coins/${id}`);
       const result = await response.json();
       setSingleCrypto(result);
       navigate(`/crypto/${id}`);
@@ -180,6 +183,7 @@ export const CryptoProvider = ({ children }) => {
   );
 };
 
+// Custom hook to use the CryptoContext
 export const useCrypto = () => {
   return useContext(CryptoContext);
 };
