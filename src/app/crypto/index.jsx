@@ -14,9 +14,8 @@ const SingleCryptoPage = () => {
 		cryptoData,
 	} = useContext(CryptoContext);
 
-	// Check if singleCrypto exists before trying to access its properties
 	if (!singleCrypto || !singleCrypto.market_data) {
-		return <div>Loading...</div>; // or any loading spinner/placeholder you prefer
+		return <div>Loading...</div>; 
 	}
 
 	return (

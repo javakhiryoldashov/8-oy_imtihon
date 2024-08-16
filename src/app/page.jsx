@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 
 import Carusel from "../components/carousel";
@@ -28,7 +28,6 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line
   }, []);
 
   const handleCryptoClick = (cryptoId) => {
@@ -176,7 +175,6 @@ function Home() {
                       <tr
                         key={crypto.id}
                         className="tr py-[21px] cursor-pointer"
-                        onClick={() => getCryptoById(crypto.id)}
                       >
                         <td
                           className="w-[445px] text-start px-5 items-center"
@@ -215,15 +213,16 @@ function Home() {
                           </p>
                         </td>
                         <td className="w-[258px] text-right flex justify-end">
-                          <div className="flex justify-end items-center ">
+                          <div className="flex justify-end items-center">
                             <div className="flex items-center mt-[10px]">
                               <div
                                 className="w-[50px] flex justify-start mr-[5px]"
-                                onClick={() =>
+                                onClick={(e) => {
+                                  e.stopPropagation();
                                   isAdded
                                     ? removeFromWatchList(crypto.id)
-                                    : addToWatchList(crypto)
-                                }
+                                    : addToWatchList(crypto);
+                                }}
                               >
                                 <span
                                   className={`${
@@ -256,6 +255,7 @@ function Home() {
                             </div>
                           </div>
                         </td>
+
                         <td className="w-[250px] text-right">
                           <p className="text-[14px] text-white">
                             {current === "₹"
