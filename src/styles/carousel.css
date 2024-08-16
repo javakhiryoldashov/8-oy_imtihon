@@ -1,0 +1,48 @@
+/* styles.css or a corresponding CSS module */
+
+.carousel-item {
+	width: 100%;
+	padding: 16px;
+}
+
+.carousel-item img {
+	width: 80px !important;
+	height: 80px !important;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.carousel-item h3 {
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.slick-prev,
+.slick-next {
+	display: none !important;
+}
+
+.title_carusel {
+	padding-top: 70px;
+	font-size: 60px;
+	font-weight: 700;
+	line-height: 72px;
+	letter-spacing: -0.5px;
+	text-align: center;
+	color: rgba(135, 206, 235, 1);
+}
+
+.lorem_carusel {
+	color: rgba(169, 169, 169, 1);
+	padding-top: 10px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 21.98px;
+	letter-spacing: 0.10000000149011612px;
+	text-align: center;
+}
+
+/* .slider-container{
+    margin-left: 100px !important;
+  } */
